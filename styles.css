@@ -1934,3 +1934,36 @@ nav {
 @keyframes pulse {50%{box-shadow:0 0 0 1px rgba(255,160,170,.85) inset,0 8px 34px rgba(255,42,61,.7),0 0 84px rgba(255,42,61,.5)}}
 
 @media (prefers-reduced-motion:reduce) {.go::before,.go::after{animation:none}}
+
+/* словарь ауры */
+.dh { font: 600 13px Onest, sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #ff4a5e; margin: 0; }
+.dhero small { display: block; font-size: 10px; letter-spacing: .16em; color: var(--mute); }
+.dhero h3 { margin: 8px 0; font-size: clamp(15px, 4.6vw, 19px); line-height: 1.25; text-shadow: 0 0 18px rgba(255,42,61,.4); }
+.dhero p { margin: 0; color: var(--mute); line-height: 1.45; }
+.box.dl { padding-top: 4px; padding-bottom: 4px; }
+.di { display: grid; gap: 3px; padding: 12px 0; border-top: 1px solid var(--line); }
+.di:first-child { border-top: 0; }
+.di b { font-size: 15px; }
+.di span { color: var(--mute); font-size: 14px; line-height: 1.4; }
+.di.rk { display: flex; align-items: center; gap: 14px; }
+.di.rk img { width: 56px; height: 56px; flex: none; border-radius: 14px; object-fit: cover; box-shadow: 0 0 14px rgba(255,42,61,.25); }
+.di.rk div { display: grid; gap: 3px; min-width: 0; }
+.di.rk em { justify-self: start; font-style: normal; font-size: 11px; letter-spacing: .08em; color: #ffb347; border: 1px solid rgba(255,179,71,.5); border-radius: 99px; padding: 2px 9px; }
+.di.sc { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.di.sc span { color: var(--ink); }
+.di.sc b { white-space: nowrap; font-size: 16px; }
+.di.sc .pl { color: #ffb347; }
+.di.sc .mn { color: #ff4a5e; }
+.di.sc .in { color: #ff8aa0; font-size: 22px; }
+.dex { text-align: center; }
+.dex .disp { font-size: 46px; text-shadow: 0 0 24px rgba(255,42,61,.6); margin-bottom: 6px; }
+.dex p { margin: 4px 0 12px; color: var(--mute); line-height: 1.45; }
+.box > .bar { margin: 10px 0 14px; }
+
+.trk .wd { display: block; font-style: normal; font-weight: 400; font-size: 12px; line-height: 1.35; color: var(--mute); margin-top: 3px; }
+.rkh { display: flex; align-items: center; gap: 12px; margin: 6px 0 10px; }
+.rkh img { width: 44px; height: 44px; border-radius: 12px; object-fit: cover; box-shadow: 0 0 12px rgba(255,42,61,.3); }
+
+/* узкие экраны: кнопки в ряд и поле заметки */
+.box .row .cta { font-size: 14px; white-space: nowrap; padding-left: 6px; padding-right: 6px; }
+textarea { border-width: var(--bw) !important; border-radius: var(--rad-s); }

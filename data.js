@@ -43,34 +43,38 @@ function wk(){var c=0,w=Date.now()-6048e5;for(var k in S.done)if(S.done[k]>w)c++
 function cms(){var n=0;BK[S.u].forEach(function(b){b.c.forEach(function(c){if(c.u===S.u)n++})});return n}
 function aura(){return ao(S.u)}
 function val(id){return $("#"+id).value.trim()}
-function ach(){var d=tot()[0];return[["🏁","Первая кровь","+1000 AURA: первый урок",d>=1],["🔥","Разгон","5 уроков",d>=5],["🗿","МОГГИНГ","10 уроков, прокрастинация намоггана",d>=10],["🎯","Цель недели","выполнена",wk()>=GL[S.u]],["📝","Мыслитель","первая заметка",NT[S.u].length>0],["📌","Коллекционер","первая ссылка",LB[S.u].length>0],["📖","Книжный червь","первый комментарий",cms()>0]]}
+function ach(){var d=tot()[0];return[["🏁","Плюс аура","+1000 AURA: первый урок",d>=1],["🔥","Аура фармится сама","5 уроков",d>=5],["🗿","ГЛАЗАМИ НЕ МОРГАТЬ","10 уроков при полном хаосе",d>=10],["🎯","Кино","цель недели выполнена",wk()>=GL[S.u]],["📝","ЛОР","первая заметка",NT[S.u].length>0],["📌","Хранитель лора","первая ссылка",LB[S.u].length>0],["📖","Троллфейс","первый комментарий",cms()>0]]}
 var E={},AC,WORDS=[["traffic","трафик"],["conversion","конверсия"],["budget","бюджет"],["audience","аудитория"],["click","клик"],["reach","охват"],["brand","бренд"],["target","цель, таргет"]].map(function(w,i){return{id:i,a:w[0],b:w[1]}});
 function day(){return new Date().toISOString().slice(0,10)}
 function sd(){return new Date().setHours(0,0,0,0)}
 function snd(t){if(!S.snd)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();var n=AC.currentTime,b=t==="boom";(b?[[110,0]]:[[523,0],[659,.12],[784,.24]]).forEach(function(p){var o=AC.createOscillator(),g=AC.createGain();o.type=b?"sine":"triangle";o.frequency.setValueAtTime(p[0],n+p[1]);if(b)o.frequency.exponentialRampToValueAtTime(35,n+.6);g.gain.setValueAtTime(.5,n+p[1]);g.gain.exponentialRampToValueAtTime(.001,n+p[1]+(b?.7:.3));o.connect(g);g.connect(AC.destination);o.start(n+p[1]);o.stop(n+p[1]+.8)})}catch(e){}}
 function ao(u){var e=E[u],n=0,c=0;for(var k in D[u])if(D[u][k])n++;Object.keys(BK).forEach(function(k){BK[k].forEach(function(b){b.c.forEach(function(x){if(x.u===u)c++})})});
- return Math.max(0,n*1000+NT[u].length*100+LB[u].length*100+c*200+e.f*500+Object.keys(e.m).length*300+e.w.length*50-e.p)}
+ return Math.max(0,n*1000+NT[u].length*100+LB[u].length*100+c*200+e.f*500+(e.lg||0)*5000+Object.keys(e.m).length*300+e.w.length*50-e.p)}
 function ov(h){var o=$("#ov");o.innerHTML=h;o.classList.add("on")}
 function visit(){var e=E[S.u],t=day();if(e.d===t)return;var g=e.d?Math.round((Date.parse(t)-Date.parse(e.d))/864e5):0;
- if(!e.d||g===1){e.s=(e.s||0)+1;S.msg="Серия: "+e.s+" дн. 🔥"}else{if(g>=3){var p=Math.min(g*100,1000);e.p+=p;S.msg="Тебя не было "+g+" дн. AURA −"+p}else S.msg="Серия сброшена";e.s=1}
+ if(!e.d||g===1){e.s=(e.s||0)+1;S.msg="Плюс аура: серия "+e.s+" дн. Аура фармится сама 🔥"}else{if(g>=3){var p=Math.min(g*100,1000);e.p+=p;S.msg="Тебя не было "+g+" дн. Аура в долг: −"+p+" AURA"}else S.msg="Минус аура: серия сброшена";e.s=1}
  e.d=t;save();setTimeout(cap,900)}
-var MS=[["Пройди один урок",function(u){for(var k in D[u])if(D[u][k]>sd())return 1}],["Запиши одну идею",function(u){return NT[u].some(function(n){return n.id>sd()})}],["Сохрани ссылку в библиотеку",function(u){return LB[u].some(function(n){return n.id>sd()})}],["Оставь комментарий к книге",function(u){var r=0;Object.keys(BK).forEach(function(k){BK[k].forEach(function(b){b.c.forEach(function(c){if(c.u===u&&c.ts>sd())r=1})})});return r}],["Досиди фокус-таймер до конца",function(u){return E[u].fd===day()}],["Добавь слово в карточки",function(u){return E[u].w.some(function(n){return n.id>sd()})}]];
+var MS=[["Спокойно реши проблему: пройди один урок",function(u){for(var k in D[u])if(D[u][k]>sd())return 1}],["Запиши легендарную идею",function(u){return NT[u].some(function(n){return n.id>sd()})}],["Сохрани ссылку: хранитель лора",function(u){return LB[u].some(function(n){return n.id>sd()})}],["Прокомментируй книгу: плюс аура",function(u){var r=0;Object.keys(BK).forEach(function(k){BK[k].forEach(function(b){b.c.forEach(function(c){if(c.u===u&&c.ts>sd())r=1})})});return r}],["Сохраняй покерфейс: досиди фокус до конца",function(u){return E[u].fd===day()}],["Добавь слово: аура капитализация",function(u){return E[u].w.some(function(n){return n.id>sd()})}]];
 function fmt(ms){var t=Math.max(0,Math.ceil(ms/1000));return("0"+Math.floor(t/60)).slice(-2)+":"+("0"+t%60).slice(-2)}
 var GY={tg:"◎",eng:"Aa",lib:"❏",notes:"✎",read:"▤",prog:"▲"};
 function mv(e){var n=e.target.closest&&e.target.closest(".nv");if(!n)return;var r=n.getBoundingClientRect();n.style.setProperty("--mx",(e.clientX-r.left)/r.width*100+"%");n.style.setProperty("--my",(e.clientY-r.top)/r.height*100+"%")}
 var NV=[
 ["tg","ТАРГЕТИНГ","Курсы, уроки и материалы по рекламе","ты точно знаешь, куда льёшь трафик?","#ff2a3d","big"],
-["eng","АНГЛИЙСКИЙ","Уроки и полезные ресурсы","ай спик инглиш. почти.","#ff7a45",""],
-["lib","МОЯ БИБЛИОТЕКА","Видео, ссылки, статьи","сохранено, чтобы никогда не открыть","#d6247a",""],
-["notes","ЗАМЕТКИ","Записи, идеи, конспекты","ночью гениально, утром странно","#ff9a8a",""],
-["read","ЧТЕНИЕ","Твоя подборка книг и комментарии","прочитал книгу? мог бы и дважды","#ff5c7a",""],
-["prog","МОЙ ПРОГРЕСС","Уроки, цели, достижения","галочки не врут","#ffb347","wide"]];
-var OPEN={tg:"заходи. трафик сам не польётся",eng:"welcome. проблемы?"};
-var DONE=["+1000 AURA","+1000 AURA. Прокрастинация намоггана","MOGGING: ты vs прошлое «я», 1:0","+1000 AURA. Система одобряет"];
-var TQ=["Problem?","не нажимай на меня","я просто смотрю","ты тут надолго?","осторожно, я записываю"];
+["eng","АНГЛИЙСКИЙ","Уроки и полезные ресурсы","ай спик инглиш. аура в долг","#ff7a45",""],
+["lib","МОЯ БИБЛИОТЕКА","Видео, ссылки, статьи","сохранено, чтобы никогда не открыть. NPC-энергия","#d6247a",""],
+["notes","ЗАМЕТКИ","Записи, идеи, конспекты","ночью легенда, утром странно. не объясняй","#ff9a8a",""],
+["read","ЧТЕНИЕ","Твоя подборка книг и комментарии","прочитал книгу? плюс аура","#ff5c7a",""],
+["prog","МОЙ ПРОГРЕСС","Уроки, цели, достижения","аура капитализация. цифры не врут","#ffb347","wide"]];
+var OPEN={tg:"заходи, братан. трафик сам не польётся",eng:"ЯРА-ЯРА. welcome, проблемы?"};
+var DONE=["Плюс аура. +1000 AURA","Не оправдываться без причины: +1000 AURA","Кино. +1000 AURA","Аура фармится сама. +1000 AURA","Безупречный ход. Никаких объяснений. +1000 AURA"];
+var OPENX={lib:["Хранитель лора на связи","Сохранёнки: аура капитализация"],notes:["Не объясняй. Просто запиши.","Легендарные мысли принимаются здесь"],read:["Прочитал — плюс аура","Лор требует чтения"],prog:["Цифры не врут. Аура тоже","Глазами не моргать"],foc:["Сохраняй покерфейс","25 минут. Никто не ларпит"],hwtab:["Таблица ауры. Без оправданий","Кто тут настоящий фармер?"]};
+var TQ=["Глазами не моргать","Не объясняй","Сохраняй покерфейс","ЯРА-ЯРА","БРРРАТ","67","Problem?","Никто не ларпит"];
 function pick(a){return a[Math.floor(Math.random()*a.length)]}
 function tot(){var a=0,d=0;SECS.forEach(function(s){a+=s.ls.length;s.ls.forEach(function(l){if(S.done[l.id])d++})});return[d,a]}
-function lvl(d){return d<1?"01 НОВИЧОК":d<4?"02 СТАЖЁР":d<8?"03 АГЕНТ":"04 МАСТЕР"}
+function rk(a){return a<1000?0:a<5000?1:a<15000?2:3}
+function lvl(){return DICT.ranks[rk(aura())][1]}
+function lvls(){return["Initiate","Practitioner","Archivist","Ascendant"][rk(aura())]}
+function auraS(){return rk(aura())===3?"∞":aura()}
 var TS={tg:"Таргетинг",eng:"Английский",read:"Чтение",other:"Другое"},MN=["январь","февраль","март","апрель","май","июнь","июль","август","сентябрь","октябрь","ноябрь","декабрь"];
 function ld(d){d=d||new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
 function fm(m){var h=Math.floor(m/60);return h?h+" ч"+(m%60?" "+m%60+" мин":""):m+" мин"}
@@ -81,8 +85,21 @@ function TKITEMS(sc){if(sc==="read")return BK[S.u].map(function(b){return b.t});
 function wmin(){var f=new Date();f.setDate(f.getDate()-6);var s=ld(f);return TR[S.u].reduce(function(a,e){return e.d>=s?a+e.m:a},0)}
 function wks(d){d=d||new Date();var x=new Date(d.getFullYear(),d.getMonth(),d.getDate());x.setDate(x.getDate()-((x.getDay()+6)%7));return ld(x)}
 function mystat(){var s=wks(),m=0,ds={};TR[S.u].forEach(function(e){if(e.d>=s){m+=e.m;ds[e.d]=1}});return{m:m,d:Object.keys(ds).length,s:streak("")}}
-function chal(){var c=CHD[S.u];return{t:c.t||"Недельный марафон",g:c.g||150}}
+function chal(){var c=CHD[S.u];return{t:c.t||"Недельный марафон ауры",g:c.g||150}}
 function cpy(js){var ta=$("#chc");ta.value=js;ta.select();try{navigator.clipboard.writeText(js).then(function(){toast("Скопировано. Отправь в чат")},function(){toast("Код в поле. Скопируй вручную")})}catch(e){toast("Код в поле. Скопируй вручную")}}
 var cine=$("#cine"),veil=$("#veil"),went=0;
 function goPick(){if(went)return;went=1;veil.style.opacity=1;
  setTimeout(function(){$("#intro").style.visibility="hidden";$("#pick").classList.add("show");veil.style.transition="opacity 1.3s ease";veil.style.opacity=0},950)}
+
+/* Словарь академии (раздел «Словарь ауры»). Чтобы добавить слово, допиши пару [«термин», «определение»] в нужный список. */
+var DICT={
+ sub:"TROLLFACE ACADEMY · LORE EDITION · 2026",
+ intro:"ТРОЛЛФЕЙС АКАДЕМИЯ ОФИЦИАЛЬНО ОТКРЫВАЕТ КАФЕДРУ АУРЫ.",
+ lead:"Здесь не учат жить. Здесь учат существовать так, чтобы само пространство понимало: перед ним персонаж с прокачанным пассивным навыком.",
+ terms:[["Аура","Невидимый показатель вайба, уверенности и присутствия."],["Фармить ауру","Совершать действия, от которых твой уровень легендарности растёт."],["Аура фармится сама","Высшая форма мастерства. Ты ничего не пытаешься доказать, но эффект уже произведён."],["Минус аура","Ситуация, после которой хочется выйти из комнаты и удалить воспоминание."],["Плюс аура","Безупречный ход. Никаких объяснений не требуется."],["Аура в долг","Когда уверенности на миллион, а оснований пока на ноль."],["Аура банкрот","Человек потратил весь запас харизмы за один неловкий поступок."],["Аура капитализация","Маленькое действие, которое неожиданно принесло огромный вайб."]],
+ rules:[["Никто не ларпит.","Не изображаем персонажа. Мы и есть персонаж."],["Аура фармится сама.","Любая попытка насильно выглядеть круто может привести к критическому минусу."],["Не объясняй легендарный поступок.","Объяснение иногда уничтожает весь эффект."],["Сохраняй покерфейс.","Даже если внутри происходит полный системный сбой."]],
+ slang:[["БРАТАН","Обращение к соратнику академии."],["БРРРАТ","Эмоциональное усиление обращения."],["67","Абсолютно необъяснимый кодекс. Не задавать лишних вопросов."],["ЯРА-ЯРА","Реакция на происходящее за пределами понимания."],["Троллфейс","Состояние человека, который знает больше, чем показывает."],["Кино","Ситуация настолько хороша, что её невозможно придумать."],["ЛОР","Совокупность событий, мемов и внутренних законов нашей вселенной."],["NPC","Персонаж, который будто забыл, что находится в собственной жизни."],["ГЛАЗАМИ НЕ МОРГАТЬ","Продолжать сохранять невозмутимость при полном хаосе."]],
+ ranks:[["r1","Trollface Initiate","Новичок. Только начинает понимать природу ауры.",""],["r2","Aura Practitioner","Умеет не реагировать на провокации и не терять лицо.",""],["r3","Sigma Archivist","Хранитель лора. Помнит всё, включая события, которые никто не должен был запомнить.",""],["r4","Aura Ascendant","Аура существует независимо от присутствия носителя.","Легендарный ранг"]],
+ score:[["Спокойно решить проблему","+500"],["Не оправдываться без причины","+1000"],["Случайно сделать легендарный поступок","+5000"],["Начать доказывать, что ты крутой","−1000"],["Сказать «мне всё равно», а потом проверить 47 раз","−10000"],["Аура фармится сама","∞"]],
+ exam:{code:"67",q:"Если человек говорит «я не пытаюсь фармить ауру», но его аура фармится сама, то кто здесь настоящий фармер?",a:"Вопрос некорректен. Фармер уже покинул пределы человеческой классификации."}
+};
