@@ -36,7 +36,7 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;
 function toast(t){var e=$("#toast");e.textContent=t;e.className="on";clearTimeout(toast.h);toast.h=setTimeout(function(){e.className=""},2200)}
 function findLes(id){for(var i=0;i<SECS.length;i++)for(var j=0;j<SECS[i].ls.length;j++)if(SECS[i].ls[j].id===id)return{s:SECS[i],l:SECS[i].ls[j]}}
 var D={tanya:{},eva:{},angela:{}},LB={tanya:[],eva:[],angela:[]},NT={tanya:[],eva:[],angela:[]},BK={tanya:[],eva:[],angela:[]},GL={tanya:3,eva:3,angela:3},TR={tanya:[],eva:[],angela:[]},GT={tanya:120,eva:120,angela:120},CHD={tanya:{},eva:{},angela:{}},EX=[],DEL=[];STEPS.x="Добавлено Таней";
-function save(){try{localStorage.setItem("akad1",JSON.stringify({D:D,LB:LB,NT:NT,BK:BK,GL:GL,TR:TR,GT:GT,CHD:CHD,EX:EX,DEL:DEL,hw:S.hw,E:E,sn:S.snd}))}catch(e){}}
+function save(){try{localStorage.setItem("akad1",JSON.stringify({D:D,LB:LB,NT:NT,BK:BK,GL:GL,TR:TR,GT:GT,CHD:CHD,EX:EX,DEL:DEL,hw:S.hw,E:E,sn:S.snd}))}catch(e){}if(window.syKick)syKick()}
 function load(){try{var j=JSON.parse(localStorage.getItem("akad1")||"{}");D=j.D||D;LB=j.LB||LB;NT=j.NT||NT;BK=j.BK||BK;GL=j.GL||GL;TR=j.TR||TR;GT=j.GT||GT;CHD=j.CHD||CHD;EX=j.EX||EX;S.hw=j.hw||S.hw;E=j.E||E;DEL=j.DEL||DEL;S.snd=j.sn||0}catch(e){}Object.keys(USERS).forEach(function(k){E[k]=Object.assign({d:"",s:0,f:0,p:0,m:{},w:[]},E[k])});EX.forEach(function(x){SECS.filter(function(s){return s.id===x.sec})[0].ls.push(x)})}
 function setU(u){S.u=u;S.done=D[u]}
 function wk(){var c=0,w=Date.now()-6048e5;for(var k in S.done)if(S.done[k]>w)c++;return c}
@@ -85,7 +85,7 @@ function TKITEMS(sc){if(sc==="read")return BK[S.u].map(function(b){return b.t});
 function wmin(){var f=new Date();f.setDate(f.getDate()-6);var s=ld(f);return TR[S.u].reduce(function(a,e){return e.d>=s?a+e.m:a},0)}
 function wks(d){d=d||new Date();var x=new Date(d.getFullYear(),d.getMonth(),d.getDate());x.setDate(x.getDate()-((x.getDay()+6)%7));return ld(x)}
 function mystat(){var s=wks(),m=0,ds={};TR[S.u].forEach(function(e){if(e.d>=s){m+=e.m;ds[e.d]=1}});return{m:m,d:Object.keys(ds).length,s:streak("")}}
-function chal(){var c=CHD[S.u];return{t:c.t||"Недельный марафон ауры",g:c.g||150}}
+function chal(){var c=CHD[S.u],h=SH.ch||{};return{t:h.t||c.t||"Недельный марафон ауры",g:h.g||c.g||150}}
 function cpy(js){var ta=$("#chc");ta.value=js;ta.select();try{navigator.clipboard.writeText(js).then(function(){toast("Скопировано. Отправь в чат")},function(){toast("Код в поле. Скопируй вручную")})}catch(e){toast("Код в поле. Скопируй вручную")}}
 var cine=$("#cine"),veil=$("#veil"),went=0;
 function goPick(){if(went)return;went=1;veil.style.opacity=1;

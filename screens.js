@@ -41,7 +41,7 @@ function home(){
  var t=tot(),k=0,d0=S.seen?0:.7;if(!S.seen)setTimeout(function(){S.seen2=1;$("#app").classList.add("seen")},2800);S.seen=1;
  function dl(c){return 'style="--d:'+(d0+.13*k++).toFixed(2)+'s'+(c?';--c:'+c:'')+'"'}
  var act=SECS.filter(function(s){return s.ls.length}).length,last=S.last&&findLes(S.last);
- var h='<div class="stat rv" data-a="egg" '+dl()+'><i></i>СИСТЕМА АКТИВИРОВАНА · AURA '+auraS()+' · 🔥'+E[S.u].s+'</div>';
+ var h='<div class="stat rv" data-a="egg" '+dl()+'><i></i>СИСТЕМА АКТИВИРОВАНА · AURA '+auraS()+' · 🔥'+E[S.u].s+syIcon()+'</div>';
  h+='<div class="hi rv" '+dl()+'><button class="mini" data-a="troll" aria-label="Секрет">'+mask("troll")+'</button><small>ДОБРО ПОЖАЛОВАТЬ ОБРАТНО,</small><h1 class="disp">'+USERS[S.u].n.toUpperCase()+'</h1><span class="ln"></span></div>';
  h+='<div class="chips rv" '+dl()+'><div><small>РАНГ</small><b>'+lvls()+'</b></div><div><small>КУРСОВ</small><b>'+act+' акт.</b></div><div><small>ПОСЛЕДНЕЕ</small><b>'+(last?esc(last.l.t):"пока нет")+'</b></div></div>'+msn()+cdw()+trkRow()+dictRow()+'<div class="nvg">';
  var fid=E[S.u].sec||"tg",ord=NV.filter(function(x){return x[0]===fid}).concat(NV.filter(function(x){return x[0]!==fid}));
@@ -88,7 +88,7 @@ function hwTab(){
  var c=chal(),st=mystat(),ws=wks(),left=6-((new Date().getDay()+6)%7),pe=CHD[S.u].p||{},ad=USERS[S.u].admin;
  var h='<div class="top"><h2 class="disp">Челлендж</h2>'+mask("troll","th")+'</div>';
  h+='<div class="box"><small style="color:var(--mute);letter-spacing:.16em">НЕДЕЛЬНЫЙ ЧЕЛЛЕНДЖ · '+(left?"ОСТАЛОСЬ "+left+" ДН":"ПОСЛЕДНИЙ ДЕНЬ")+'</small><h3 class="disp" style="margin:6px 0">'+esc(c.t)+'</h3><p style="margin:0;color:var(--mute)">Цель: '+fm(c.g)+' занятий за неделю. Время берётся из трекера само.</p></div>';
- var L=Object.keys(USERS).map(function(k){var r=null;if(k===S.u)r={m:st.m,d:st.d,s:st.s};else if(pe[k]&&pe[k].w===ws)r={m:pe[k].m,d:pe[k].d,s:pe[k].s,u:pe[k].u};return{k:k,r:r}});
+ var L=Object.keys(USERS).map(function(k){var r=null;if(k===S.u)r={m:st.m,d:st.d,s:st.s};else if(SY.got[k])r=mst(k);else if(pe[k]&&pe[k].w===ws)r={m:pe[k].m,d:pe[k].d,s:pe[k].s,u:pe[k].u};return{k:k,r:r}});
  var best=Math.max.apply(null,[0].concat(L.map(function(x){return x.r?x.r.m:0})));
  h+='<div class="box"><b>Таблица ауры</b>'+L.map(function(x){var r=x.r;if(!r)return '<div class="trr"><span>'+USERS[x.k].n+'</span><div class="bar"><i style="width:0"></i></div><b>аура неизвестна</b></div><small class="hint" style="display:block;margin:2px 0 0">Попроси у неё код результата</small>';
   return '<div class="trr"><span>'+(r.m>0&&r.m===best?"👑 ":"")+USERS[x.k].n+(r.m>=c.g?" ✓":"")+'</span><div class="bar"><i style="width:'+Math.min(100,r.m/c.g*100)+'%"></i></div><b>'+fm(r.m)+'</b></div><small class="hint" style="display:block;margin:2px 0 0">'+r.d+' дн занималась · серия '+r.s+' дн'+(r.u?' · обновлено '+r.u.slice(8)+'.'+r.u.slice(5,7):'')+'</small>'}).join("")+'</div>';
@@ -164,7 +164,7 @@ function me(){
  return h+'</div><button class="cta ghost" data-a="snd" style="width:100%;margin-bottom:12px">Звук: '+(S.snd?"вкл":"выкл")+'</button><p style="color:var(--mute);font-size:14px">Переключатель нужен только для демо. В настоящем приложении Telegram сам знает, кто открыл.</p>';
 }
 function render(){save();
- var h=S.scr==="home"?home():S.scr==="sec"?(S.sec==="eng"?section().replace(/(<button class="trk[^>]*>[\s\S]*?<\/button>)/,function(m){return m+cards()}):section()):S.scr==="les"?lesson():S.scr==="hw"?hwScreen():S.scr==="hwtab"?hwTab():S.scr==="prog"?prog():S.scr==="trk"?trkS():S.scr==="dict"?dictS():S.scr==="foc"?foc():S.scr==="secret"?secret():S.scr==="soon"?soon():S.scr==="lib"?libS():S.scr==="notes"?notesS():S.scr==="read"?readS():S.scr==="adm"?adm():me()+BACKUP();
+ var h=S.scr==="home"?home():S.scr==="sec"?(S.sec==="eng"?section().replace(/(<button class="trk[^>]*>[\s\S]*?<\/button>)/,function(m){return m+cards()}):section()):S.scr==="les"?lesson():S.scr==="hw"?hwScreen():S.scr==="hwtab"?hwTab():S.scr==="prog"?prog():S.scr==="trk"?trkS():S.scr==="dict"?dictS():S.scr==="foc"?foc():S.scr==="secret"?secret():S.scr==="soon"?soon():S.scr==="lib"?libS():S.scr==="notes"?notesS():S.scr==="read"?readS():S.scr==="adm"?adm():me()+SYNCB()+BACKUP();
  var ap=$("#app");ap.innerHTML=h;ap.classList.remove("pg");void ap.offsetWidth;ap.classList.add("pg");
  var pend=USERS[S.u].admin?S.hw.filter(function(x){return x.st==="p"}).length:0;
  var tabs=[["learn","⌂","Главная"],["hwtab","★","Челлендж"],["me","🎭","Профиль"]];

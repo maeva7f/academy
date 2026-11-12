@@ -31,11 +31,12 @@ document.addEventListener("click",function(e){
  else if(a==="bkrs"){var tx=$("#bk").value.trim();try{var o=JSON.parse(tx);if(!o||typeof o!=="object")throw 0;localStorage.setItem("akad1",tx);load();toast("Лор восстановлен. Аура на месте")}catch(e){toast("Не получилось: это не похоже на копию");return}}
  else if(a==="chmk"){var st=mystat();cpy("АКАД|R|"+S.u+"|"+wks()+"|"+st.m+"|"+st.d+"|"+st.s);return}
  else if(a==="chtk"){var c=chal();cpy("АКАД|T|"+wks()+"|"+c.g+"|"+c.t);return}
- else if(a==="chset"){var tt=$("#cht").value.trim(),gg=parseInt($("#chg").value,10);if(!(gg>=30&&gg<=5000)){toast("Цель от 30 до 5000 минут");return}CHD[S.u].g=gg;if(tt)CHD[S.u].t=tt.slice(0,60);toast("Задание сохранено")}
+ else if(a==="chset"){var tt=$("#cht").value.trim(),gg=parseInt($("#chg").value,10);if(!(gg>=30&&gg<=5000)){toast("Цель от 30 до 5000 минут");return}CHD[S.u].g=gg;if(tt)CHD[S.u].t=tt.slice(0,60);SH.ch={t:(tt||CHD[S.u].t||"Недельный марафон ауры").slice(0,60),g:gg};toast("Задание сохранено")}
  else if(a==="chin"){var pr=$("#chc").value.trim().split("|");if(pr[0]!=="АКАД"){toast("Это не код из приложения");return}
   if(pr[1]==="R"){var u=pr[2],m=parseInt(pr[4],10),dd=parseInt(pr[5],10),sk=parseInt(pr[6],10);if(!USERS[u]||u===S.u||!(m>=0&&m<=100000)||!(dd>=0&&dd<=7)||!(sk>=0&&sk<=3650)){toast("Код не подходит");return}if(pr[3]!==wks()){toast("Этот код за другую неделю");return}CHD[S.u].p=CHD[S.u].p||{};CHD[S.u].p[u]={w:pr[3],m:m,d:dd,s:sk,u:ld()};toast("Результат добавлен: "+USERS[u].n+". Глазами не моргать")}
   else if(pr[1]==="T"){var g2=parseInt(pr[3],10),t2=pr.slice(4).join("|").trim();if(!(g2>=30&&g2<=5000)||!t2){toast("Код задания повреждён");return}CHD[S.u].g=g2;CHD[S.u].t=t2.slice(0,60);toast("Задание обновлено")}
   else{toast("Код не распознан");return}}
+ else if(a==="sync"){SY.err="";syPull();toast("Синхронизирую…");return}
  else if(a==="deltrk"){TR[S.u]=TR[S.u].filter(function(x){return String(x.id)!==id})}
  else if(a==="delnote"){NT[S.u]=NT[S.u].filter(function(x){return String(x.id)!==id})}
  else if(a==="addbook"){var w=$("#bw").value,t=val("bt");if(!t){toast("Напиши название книги");return}BK[w].push({id:Date.now(),t:t,a:val("ba"),n:val("bn"),c:[],by:S.u});toast(w===S.u?"Книга добавлена":"Книга добавлена: "+USERS[w].n)}
@@ -67,3 +68,4 @@ Array.prototype.forEach.call(document.querySelectorAll(".pk"),function(b){b.oncl
 load();SECS.forEach(function(z){z.ls=z.ls.filter(function(l){return DEL.indexOf(String(l.id))<0})});window.addEventListener("load",function(){try{var tw=window.Telegram&&Telegram.WebApp;if(tw){tw.ready();tw.expand();if(tw.setHeaderColor)tw.setHeaderColor("#050204");if(tw.setBackgroundColor)tw.setBackgroundColor("#050204")}}catch(e){}});
 setU("tanya");document.body.insertAdjacentHTML("beforeend",'<div id="ov"></div>');setInterval(function(){if(!S.fe)return;var l=S.fe-Date.now(),t=$("#tm");if(t)t.textContent=fmt(l);if(l<=0){S.fe=0;E[S.u].f++;E[S.u].fd=day();TR[S.u].unshift({id:Date.now(),d:ld(),m:25,s:S.fsec||"other",b:"",n:"Фокус-таймер"});save();snd("ach");toast("Спокойно решить проблему: +500 AURA. 25 мин в трекере");if(S.scr==="foc")render()}},500);setInterval(function(){var e=$("#cd");if(e)e.innerHTML=cdh()},1000);render();
 document.addEventListener("input",function(e){if(e.target.id==="sq"){S.q=e.target.value;$("#ll").innerHTML=llist()}});
+syInit();
